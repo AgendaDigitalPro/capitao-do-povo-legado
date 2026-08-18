@@ -9,11 +9,11 @@ import depoimento3 from "@/assets/depoimento-3.jpg";
 export const Route = createFileRoute("/etapa-3")({
   head: () => ({
     meta: [
-      { title: "Defina o enquadramento | Foto Camarada" },
+      { title: "Defina o enquadramento | Capitão do Povo" },
       {
         name: "description",
         content:
-          "Escolha o enquadramento da sua foto com o nosso Presidente: peito para cima, meio corpo ou selfie próxima.",
+          "Escolha o enquadramento da sua foto com o Capitão: peito para cima, meio corpo ou selfie próxima.",
       },
       { property: "og:title", content: "Defina o enquadramento da sua foto" },
       {
@@ -91,7 +91,7 @@ function Etapa3() {
 
       {/* Título */}
       <section className="pt-6">
-        <p className="text-xs font-bold uppercase tracking-wide text-primary">Boa escolha! 🔥</p>
+        <p className="text-xs font-bold uppercase tracking-wide text-primary">Boa escolha! 🇧🇷</p>
         <h1 className="mt-1 text-2xl font-extrabold leading-tight tracking-tight text-foreground">
           Defina o enquadramento
         </h1>
@@ -100,7 +100,7 @@ function Etapa3() {
         </p>
       </section>
 
-      {erro && <p role="alert" className="mt-4 text-xs font-semibold text-primary">{erro}</p>}
+      {erro && <p role="alert" className="mt-4 text-xs font-semibold text-destructive">{erro}</p>}
 
       {/* Opções */}
       <section className="mt-5 flex-1 space-y-3">
@@ -140,16 +140,16 @@ function Etapa3() {
         <div className="flex items-start gap-3">
           <img
             src={depoimento3}
-            alt="Camarada que usou o Foto Camarada"
+            alt="Patriota que usou o Capitão do Povo"
             className="h-11 w-11 rounded-full object-cover ring-2 ring-primary/20"
           />
           <div className="min-w-0 flex-1">
             <p className="text-sm leading-snug text-foreground">
-              "Nunca tive a chance de tirar uma foto com o Presidente pessoalmente, mas essa aqui ficou de arrepiar. Já virou minha foto de perfil!"
+              "Nunca tive a chance de tirar uma foto com ele pessoalmente, mas essa aqui ficou de arrepiar. Já virou minha foto de perfil!"
             </p>
             <p className="mt-2 text-xs font-semibold text-foreground">
-              Sebastião Ramos
-              <span className="ml-1 font-normal text-muted-foreground">• camarada BR</span>
+              Jorge Almeida
+              <span className="ml-1 font-normal text-muted-foreground">• patriota BR</span>
             </p>
           </div>
         </div>
