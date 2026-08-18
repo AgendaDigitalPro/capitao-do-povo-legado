@@ -9,11 +9,11 @@ import { trackEtapa } from "@/lib/analytics";
 export const Route = createFileRoute("/etapa-4")({
   head: () => ({
     meta: [
-      { title: "Escolha o clima da imagem | Foto Camarada" },
+      { title: "Escolha o clima da imagem | Capitão do Povo" },
       {
         name: "description",
         content:
-          "Escolha o clima da sua foto com o nosso Presidente: camarada discreta, ato com bandeiras ou encontro popular.",
+          "Escolha o clima da sua foto com o Capitão: mais discreta, ato com bandeiras ou encontro no meio do povo.",
       },
       { property: "og:title", content: "Escolha o clima da imagem" },
       {
@@ -28,9 +28,9 @@ export const Route = createFileRoute("/etapa-4")({
 });
 
 const climas = [
-  { id: "discreta", titulo: "Camarada discreta" },
-  { id: "bandeiras", titulo: "Ato com bandeiras vermelhas" },
-  { id: "popular", titulo: "Encontro popular" },
+  { id: "discreta", titulo: "Discreta e elegante" },
+  { id: "bandeiras", titulo: "Ato com bandeiras verde e amarelo" },
+  { id: "popular", titulo: "Encontro no meio do povo" },
 ];
 
 function Etapa4() {
@@ -77,7 +77,7 @@ function Etapa4() {
       </header>
 
       <section className="pt-6">
-        <p className="text-xs font-bold uppercase tracking-wide text-primary">Quase lá, camarada!</p>
+        <p className="text-xs font-bold uppercase tracking-wide text-primary">Quase lá, patriota!</p>
         <h1 className="mt-1 text-2xl font-extrabold leading-tight tracking-tight text-foreground">
           Escolha o clima da imagem
         </h1>
@@ -86,7 +86,7 @@ function Etapa4() {
         </p>
       </section>
 
-      {erro && <p role="alert" className="mt-4 text-xs font-semibold text-primary">{erro}</p>}
+      {erro && <p role="alert" className="mt-4 text-xs font-semibold text-destructive">{erro}</p>}
 
       <section className="mt-5 flex-1 space-y-3">
         {climas.map((c) => {
@@ -121,7 +121,7 @@ function Etapa4() {
         <div className="flex items-start gap-3">
           <img
             src={depoimento4}
-            alt="Camarada que usou o Foto Camarada"
+            alt="Patriota que usou o Capitão do Povo"
             className="h-11 w-11 rounded-full object-cover ring-2 ring-primary/20"
           />
           <div className="min-w-0 flex-1">
@@ -130,8 +130,8 @@ function Etapa4() {
               Simples até pra mim que não manjo de celular!"
             </p>
             <p className="mt-2 text-xs font-semibold text-foreground">
-              Geraldo Nunes
-              <span className="ml-1 font-normal text-muted-foreground">• camarada BR</span>
+              Sebastião Nunes
+              <span className="ml-1 font-normal text-muted-foreground">• patriota BR</span>
             </p>
           </div>
         </div>
