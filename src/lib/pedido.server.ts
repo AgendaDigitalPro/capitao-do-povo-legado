@@ -231,7 +231,7 @@ export function sessaoDoUpsell(sessionIdOrigem: string): string {
 // A referencia do Presidente vem do bucket "referencias" do Storage. As duas
 // novas vem da pasta publica public/referencias do proprio site.
 // ───────────────────────────────────────────────────────────────────────────
-const APP_BASE = process.env["APP_URL"] ?? "https://fotocamarada.lovable.app";
+const APP_BASE = process.env["APP_URL"] ?? "https://capitaodopovo.lovable.app";
 const LIDERES_COMBO = [
   { slug: "flavio", nome: "Flávio Bolsonaro" },
   { slug: "nikolas", nome: "Nikolas Ferreira" },
@@ -408,7 +408,8 @@ export async function gerarEEntregarFoto(sessionId: string) {
     // com o bucket na frente, evitando o caminho duplicado "selfies/selfies/...".
     const selfiePath = caminhoDentroDoBucket("selfies", pedido.selfie_url ?? `${sessionId}.jpg`);
     const selfieAssinada = await signedUrl("selfies", selfiePath);
-    const referenciaAssinada = await signedUrl("referencias", "capitao.jpg");
+    // As tres referencias vivem em public/referencias/ deste projeto.
+    const referenciaAssinada = `${APP_BASE}/referencias/capitao.jpg`;
 
     const bumps = Array.isArray(pedido.bumps_selecionados) ? (pedido.bumps_selecionados as string[]) : [];
     const ehUpsell = bumps.includes(MARCA_UPSELL);
@@ -553,7 +554,7 @@ export async function enviarEmail(
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
     body: JSON.stringify({
       // Dominio fotocamarada.online verificado no Resend (DKIM + SPF).
-      from: process.env["EMAIL_FROM"] || "Foto Camarada <contato@fotocamarada.online>",
+      from: process.env["EMAIL_FROM"] || "Capitão do Povo <contato@fotocamarada.online>",
       to: [email],
       subject: assunto,
       html: `<div style="font-family:Arial;padding:24px;max-width:600px;margin:0 auto"><h1 style="color:#c8102e">${titulo}</h1>${blocos || `<p><a href="${principal}">Baixar Foto</a></p>`}${oferta}</div>`,
