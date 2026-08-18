@@ -8,16 +8,16 @@ import { trackEtapa } from "@/lib/analytics";
 export const Route = createFileRoute("/etapa-2")({
   head: () => ({
     meta: [
-      { title: "Escolha o cenário | Foto Camarada" },
+      { title: "Escolha o cenário | Capitão do Povo" },
       {
         name: "description",
         content:
-          "Escolha o cenário da sua foto com o nosso Presidente. Selfie, encontro em Brasília, ato popular ou evento especial.",
+          "Escolha o cenário da sua foto com o Capitão. Selfie, encontro em Brasília, ato patriota ou momento especial.",
       },
       { property: "og:title", content: "Escolha o cenário da sua foto" },
       {
         property: "og:description",
-        content: "Escolha como você quer aparecer ao lado do nosso Presidente.",
+        content: "Escolha como você quer aparecer ao lado do Capitão.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -26,10 +26,13 @@ export const Route = createFileRoute("/etapa-2")({
   component: Etapa2,
 });
 
+// ATENCAO: os ids abaixo precisam existir como chave em PROMPTS, no
+// pedido.server.ts. Se mudar um id aqui sem mudar la, a geracao cai no
+// cenario padrao e o cliente recebe uma foto diferente da que escolheu.
 const cenarios = [
   {
     id: "selfie",
-    titulo: "Selfie com o Presidente",
+    titulo: "Selfie com o Capitão",
     descricao: "Uma foto casual, como se fosse um registro rápido para postar.",
     icone: Camera,
   },
@@ -41,14 +44,14 @@ const cenarios = [
   },
   {
     id: "ato",
-    titulo: "Ato popular",
-    descricao: "Clima de comício com bandeiras vermelhas e muita energia na plateia.",
+    titulo: "Ato patriota",
+    descricao: "Clima de manifestação, com bandeiras verde e amarelo e o povo na rua.",
     icone: Flag,
   },
   {
     id: "encontro",
-    titulo: "Encontro camarada",
-    descricao: "Uma imagem calorosa, de companheiro encontrando seu grande líder.",
+    titulo: "Aperto de mão",
+    descricao: "Uma imagem calorosa, de quem finalmente encontrou quem admira.",
     icone: Heart,
   },
 ];
@@ -107,7 +110,7 @@ function Etapa2() {
         </p>
       </section>
 
-      {erro && <p role="alert" className="mt-4 text-xs font-semibold text-primary">{erro}</p>}
+      {erro && <p role="alert" className="mt-4 text-xs font-semibold text-destructive">{erro}</p>}
 
       {/* Opções */}
       <section className="mt-5 flex-1 space-y-3">
