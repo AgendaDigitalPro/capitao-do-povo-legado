@@ -19,24 +19,16 @@ function useIsMounted() {
   return mounted;
 }
 
-
-
-const PLAYER_ID = "vid-6a790d62938fcc8146086e01";
-const PLAYER_SRC =
-  "https://scripts.converteai.net/cb0b2b29-6ed3-409f-ad3c-446c8096cc9c/players/6a790d62938fcc8146086e01/v4/player.js";
-
-const VTurbSmartPlayer = "vturb-smartplayer" as any;
-
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sua foto com o nosso Presidente | Foto Camarada" },
+      { title: "Sua foto com o Capitão | Capitão do Povo" },
       {
         name: "description",
         content:
-          "Envie uma selfie e receba em minutos a foto que faltava: você ao lado do nosso Presidente. Pagamento único, imagem gerada por IA.",
+          "Envie uma selfie e receba em minutos a foto que faltava: você ao lado do Capitão. Pagamento único, imagem gerada por IA.",
       },
-      { property: "og:title", content: "Sua foto com o nosso Presidente" },
+      { property: "og:title", content: "Sua foto com o Capitão" },
       {
         property: "og:description",
         content: "Mande uma selfie e faça hoje a foto que ficou faltando esses anos todos.",
@@ -45,24 +37,20 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  beforeLoad: () => {
-    // Redireciona para oferta especial se o parâmetro downsell estiver na URL
-    // Útil para gatilhos de anúncio ou back redirect externo direto
-  },
   component: Index,
 });
 
 const exemplos = [
-  { src: ex1, titulo: "Exemplo 1: Selfie camarada" },
-  { src: ex2, titulo: "Exemplo 2: Encontro com o Presidente" },
-  { src: ex3, titulo: "Exemplo 3: Ato das bandeiras" },
+  { src: ex1, titulo: "Exemplo 1: Selfie com o Capitão" },
+  { src: ex2, titulo: "Exemplo 2: Encontro em Brasília" },
+  { src: ex3, titulo: "Exemplo 3: Ato verde e amarelo" },
 ];
 
 const passos = [
   {
     icone: Sparkles,
     titulo: "Escolha o cenário",
-    texto: "Selfie, ato popular ou encontro em Brasília.",
+    texto: "Selfie, ato patriota ou encontro em Brasília.",
   },
   {
     icone: Camera,
@@ -78,31 +66,31 @@ const passos = [
 
 const depoimentos = [
   {
-    nome: "Valdeci Oliveira",
-    user: "@valdeci.camarada",
+    nome: "Antônio Ribeiro",
+    user: "@antonio.patriota",
     texto:
-      "\u201cFiz todos os meus companheiros usarem foto de perfil com o Presidente. Ficou tão real que o pessoal do grupo nem acreditou!\u201d",
+      "“Coloquei no perfil e o pessoal do grupo veio tudo perguntar onde eu tinha tirado. Ficou tão real que ninguém acreditou!”",
     foto: dep1,
   },
   {
-    nome: "Terezinha Souza",
-    user: "@dona.terezinha",
+    nome: "Marlene Duarte",
+    user: "@dona.marlene",
     texto:
-      "\u201cBotei minha foto com o Presidente no WhatsApp e o grupo da família inteiro quis fazer a sua também. Ficou muito real!\u201d",
+      "“Botei minha foto com o Capitão no WhatsApp e o grupo da família inteiro quis fazer a sua também. Ficou muito real!”",
     foto: dep2,
   },
   {
-    nome: "Sebastiao Ramos",
-    user: "@sebastiao.brasil",
+    nome: "Jorge Almeida",
+    user: "@jorge.brasil",
     texto:
-      "\u201cNunca tive a chance de tirar uma foto com o Presidente pessoalmente, mas essa aqui ficou de arrepiar. Já virou minha foto de perfil!\u201d",
+      "“Nunca tive a chance de tirar uma foto com ele pessoalmente, mas essa aqui ficou de arrepiar. Já virou minha foto de perfil!”",
     foto: dep3,
   },
   {
-    nome: "Geraldo Nunes",
-    user: "@geraldo.nunes",
+    nome: "Sebastião Nunes",
+    user: "@sebastiao.nunes",
     texto:
-      "\u201cPaguei no PIX e recebi na hora. Compartilhei no grupo e todo mundo pediu o link. Simples até pra mim que não manjo de celular!\u201d",
+      "“Paguei no PIX e recebi na hora. Compartilhei no grupo e todo mundo pediu o link. Simples até pra mim que não manjo de celular!”",
     foto: dep4,
   },
 ];
@@ -125,50 +113,9 @@ function Stars() {
   );
 }
 
-function VturbPlayer() {
-  const isMounted = useIsMounted();
-
-  useEffect(() => {
-    if (!isMounted) return;
-    const existing = document.querySelector(`script[data-vturb-id="${PLAYER_ID}"]`);
-    if (!existing) {
-      const s = document.createElement("script");
-      s.src = PLAYER_SRC;
-      s.async = true;
-      s.dataset["vturbId"] = PLAYER_ID;
-      document.head.appendChild(s);
-    }
-  }, [isMounted]);
-
-  if (!isMounted) {
-    return (
-      <div className="relative w-full overflow-hidden rounded-xl bg-black" style={{ paddingTop: "56.25%" }}>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-xs text-white/70">Carregando vídeo...</span>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <VTurbSmartPlayer id={PLAYER_ID} style={{ display: "block", margin: "0 auto", width: "100%" }}>
-      <div
-        className="vturb-player-placeholder"
-        style={{
-          position: "relative",
-          width: "100%",
-          padding: "56.25% 0 0",
-          zIndex: 0,
-          backgroundColor: "black",
-        }}
-      ></div>
-    </VTurbSmartPlayer>
-  );
-}
-
 function Index() {
   const isMounted = useIsMounted();
-  
+
   // Garante o ID da sessão imediatamente na renderização
   const sessionId = getSessionId();
 
@@ -191,7 +138,7 @@ function Index() {
       {/* Hero */}
       <section className="-mx-4 bg-primary-dark px-4 pb-6 pt-6 text-center">
         <h1 className="text-[28px] font-extrabold leading-[1.15] tracking-tight text-primary-foreground">
-          Sua foto ao lado do Presidente 🚩
+          Sua foto ao lado do Capitão 🇧🇷
         </h1>
         <p className="mx-auto mt-2 max-w-[19rem] text-sm leading-snug text-primary-foreground/85">
           A inteligência artificial cria em minutos uma foto realista sua com ele.
@@ -199,10 +146,10 @@ function Index() {
 
         <div className="mx-auto mt-5 w-full">
           <div className="overflow-hidden rounded-2xl border-4 border-card shadow-[0_12px_30px_-8px_rgba(0,0,0,0.45)]">
-            <img 
-              src={ex1} 
-              alt="Exemplo Hero" 
-              className="w-full h-auto block" 
+            <img
+              src={ex1}
+              alt="Exemplo de foto com o Capitão gerada por IA"
+              className="w-full h-auto block"
             />
           </div>
         </div>
@@ -216,7 +163,7 @@ function Index() {
         </Link>
 
         <p className="mt-3 text-sm font-semibold text-primary-foreground">
-          🔥 Mais de 12.000 camaradas já criaram a sua
+          🔥 Mais de 12.000 patriotas já criaram a sua
         </p>
         <p className="mt-1 text-[11px] text-primary-foreground/70">
           Pagamento único de R$ 9,90 no Pix. Imagem fictícia gerada por IA.
@@ -250,7 +197,7 @@ function Index() {
       <section className="mt-5 flex gap-2 rounded-xl border border-primary/25 bg-highlight/60 p-3">
         <Gift className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
         <p className="text-xs leading-relaxed text-secondary-foreground">
-          E leve de <strong>GRAÇA</strong> o bônus <strong>Poste Como Camarada</strong> com 20
+          E leve de <strong>GRAÇA</strong> o bônus <strong>Poste Como Patriota</strong> com 20
           legendas prontas, figurinhas e papéis de parede.
         </p>
       </section>
@@ -311,7 +258,7 @@ function Index() {
       <section>
         <h2 className="text-lg font-bold">Quem já usou aprova</h2>
         <p className="mt-1 text-xs text-muted-foreground">
-          Mensagens de camaradas que já criaram e compartilharam a própria foto. Fotos ilustrativas.
+          Mensagens de patriotas que já criaram e compartilharam a própria foto. Fotos ilustrativas.
         </p>
         <div className="mt-4 space-y-3">
           {depoimentos.map((d) => (
@@ -351,7 +298,7 @@ function Index() {
         <ArrowRight className="h-5 w-5" />
       </Link>
       <p className="mt-2 text-center text-xs text-muted-foreground">
-        🔥 Mais de 12.000 camaradas já criaram a sua
+        🔥 Mais de 12.000 patriotas já criaram a sua
       </p>
 
 
@@ -379,7 +326,7 @@ function Index() {
         </div>
         <div className="px-6 py-7">
           <h2 className="text-xl font-extrabold leading-snug text-primary-foreground">
-            Pronto para criar sua imagem com o nosso Presidente?
+            Pronto para criar sua imagem com o Capitão?
           </h2>
           <Link
             to="/etapa-2"
@@ -435,7 +382,7 @@ function Footer() {
       </div>
 
       <p className="mt-4 text-center text-xs text-muted-foreground">
-        © 2026 Foto Camarada - CNPJ: 63.109.167/0001-05
+        © 2026 Capitão do Povo - CNPJ: 63.109.167/0001-05
       </p>
 
     </footer>
