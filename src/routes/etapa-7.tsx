@@ -10,16 +10,16 @@ import { trackEtapa } from "@/lib/analytics";
 export const Route = createFileRoute("/etapa-7")({
   head: () => ({
     meta: [
-      { title: "Libere a sua foto com o Presidente | Foto Camarada" },
+      { title: "Libere a sua foto com o Capitão | Capitão do Povo" },
       {
         name: "description",
         content:
-          "Por R$ 9,90 no Pix você libera a sua foto ao lado do Presidente e ainda leva bônus exclusivos da militância.",
+          "Por R$ 9,90 no Pix você libera a sua foto ao lado do Capitão e ainda leva bônus exclusivos do patriota.",
       },
-      { property: "og:title", content: "Libere a sua foto com o Presidente" },
+      { property: "og:title", content: "Libere a sua foto com o Capitão" },
       {
         property: "og:description",
-        content: "R$ 9,90 no Pix para liberar a sua foto e os bônus da militância.",
+        content: "R$ 9,90 no Pix para liberar a sua foto e os bônus do patriota.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -28,29 +28,14 @@ export const Route = createFileRoute("/etapa-7")({
   component: Etapa7,
 });
 
-// Cartilha da Militância e Grupo VIP Telegram foram REMOVIDOS desta tela por
-// baixa adesão medida em produção: 3,6% e 0,9% respectivamente. Cada oferta a
-// mais na tela custa conversão num público de 60+, e essas duas não pagavam o
-// espaço que ocupavam.
-//
-// Elas continuam existindo em PRECOS (pedido.functions.ts) e na entrega da
-// etapa-8, para que quem já comprou não perca o acesso.
+// Ordem proposital: figurinhas primeiro porque o bump mais forte, depois do
+// combo, e o que serve ao grupo da familia. Wallpapers em seguida.
 const bumps = [
-  {
-    id: "combo-visual", // apenas marcador de ordem; o combo tem bloco próprio abaixo
-    hidden: true,
-    icon: Star,
-    title: "",
-    text: "",
-    from: "",
-    price: "",
-    tag: "",
-  },
   {
     id: "figurinhas",
     icon: MessageCircle,
-    title: "Figurinhas Camaradas pro WhatsApp",
-    text: "Bom dia, boa noite, força camarada. 8 figurinhas pra usar todo dia no grupo da família e mostrar de que lado você está.",
+    title: "Figurinhas Patriotas pro WhatsApp",
+    text: "Bom dia, boa noite, Deus abençoe. 8 figurinhas pra usar todo dia no grupo da família e mostrar de que lado você está.",
     from: "R$ 19,90",
     price: "+ R$ 9,90",
     tag: "50% OFF SÓ AGORA",
@@ -59,7 +44,7 @@ const bumps = [
     id: "wallpapers",
     icon: Smartphone,
     title: "Pack de Papéis de Parede",
-    text: "5 artes exclusivas em alta resolução pra deixar a tela do seu celular com a nossa cor. Toda vez que você olhar, lembra de que lado está.",
+    text: "5 artes exclusivas em alta resolução pra deixar a tela do seu celular verde e amarela. Toda vez que você olhar, lembra do que acredita.",
     from: "R$ 19,90",
     price: "+ R$ 9,90",
     tag: "50% OFF SÓ AGORA",
@@ -67,8 +52,8 @@ const bumps = [
   {
     id: "biografia",
     icon: BookOpen,
-    title: "Biografia do Presidente",
-    text: "A história do nosso maior líder contada desde o começo: a vida do homem que o outro lado tentou derrubar e não conseguiu.",
+    title: "A História do Capitão",
+    text: "A trajetória contada desde o começo: do quartel à Presidência, e tudo que ele enfrentou pra chegar lá.",
     from: "R$ 19,90",
     price: "+ R$ 5,99",
     tag: "70% OFF SÓ AGORA",
@@ -76,13 +61,13 @@ const bumps = [
   {
     id: "adesivos",
     icon: Sticker,
-    title: "Adesivos Camaradas",
+    title: "Adesivos Patriotas",
     text: "Cartela pronta pra imprimir e colar no carro, na moto ou no vidro: mostre de qual lado você está por onde passar.",
     from: "R$ 19,90",
     price: "+ R$ 5,99",
     tag: "70% OFF SÓ AGORA",
   },
-].filter((b) => !("hidden" in b && b.hidden));
+];
 
 
 function Etapa7() {
@@ -134,12 +119,12 @@ function Etapa7() {
       </header>
 
       <h1 className="pt-6 text-xl font-bold leading-snug text-foreground">
-        Para liberar a sua foto com o Presidente
+        Para liberar a sua foto com o Capitão
       </h1>
 
       <section className="mt-4 rounded-2xl border border-primary/25 bg-highlight/60 p-4">
         <p className="text-sm font-semibold leading-snug text-foreground">
-          Sua foto exclusiva com o Presidente, pronta pra usar no WhatsApp, Instagram e Facebook.
+          Sua foto exclusiva com o Capitão, pronta pra usar no WhatsApp, Instagram e Facebook.
         </p>
         <p className="mt-3 text-xs font-bold uppercase tracking-wide text-muted-foreground">
           Preço promocional de lançamento
@@ -149,9 +134,9 @@ function Etapa7() {
           <span className="text-3xl font-extrabold text-primary">R$9,90</span>
           <span className="pb-1 text-base font-semibold text-foreground">no Pix</span>
         </p>
-        <p className="mt-1 text-xs font-bold text-cta">Você economiza R$40,00 (80% off)</p>
+        <p className="mt-1 text-xs font-bold text-primary">Você economiza R$40,00 (80% off)</p>
         <p className="mt-3 text-sm leading-snug text-muted-foreground">
-          Esse valor cobre só o nosso trabalho e fortalece o nosso lado, em apoio ao nosso Presidente 🚩
+          Esse valor cobre só o nosso trabalho e ajuda a manter o projeto de pé 🇧🇷
         </p>
 
         <div className="mt-4 flex items-start gap-2 rounded-xl border border-primary/25 bg-card p-3">
@@ -161,15 +146,15 @@ function Etapa7() {
           </p>
         </div>
 
-        <div className="mt-3 flex items-start gap-2 rounded-xl border border-cta/30 bg-cta/5 p-3">
-          <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-cta" />
+        <div className="mt-3 flex items-start gap-2 rounded-xl border border-primary/30 bg-primary/5 p-3">
+          <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
           <p className="text-sm font-semibold leading-snug text-foreground">
             🛡️ Satisfação garantida ou seu dinheiro de volta em 7 dias.
           </p>
         </div>
 
         <p className="mt-4 text-center text-sm font-extrabold tracking-wide text-foreground">
-          APOIE A NOSSA LUTA
+          BRASIL ACIMA DE TUDO
         </p>
       </section>
 
@@ -189,34 +174,34 @@ function Etapa7() {
             />
             <div className="min-w-0">
               <p className="text-sm font-bold text-foreground">
-                Combo 3 Líderes da Esquerda 🚩
+                Combo 3 da Direita 🇧🇷
               </p>
               <p className="mt-2 inline-block rounded-md bg-primary px-2 py-1 text-[11px] font-bold text-primary-foreground">
                 SUA FOTO VIRA 3, POR SÓ + R$ 9,90
               </p>
               <p className="mt-2 text-xs leading-snug text-muted-foreground">
-                A mesma selfie também com a <strong className="text-foreground">Dilma</strong> e o{" "}
-                <strong className="text-foreground">Boulos</strong>. Enquanto a direita treme, você já
-                mostra de que lado tá, com o maior time popular do país. 🚩
+                A mesma selfie também com o <strong className="text-foreground">Flávio</strong> e o{" "}
+                <strong className="text-foreground">Nikolas</strong>. Três fotos pra mostrar de que
+                lado você está, com quem representa o Brasil de verdade. 🇧🇷
               </p>
               <div className="mt-3 flex items-center gap-4">
                 <div className="flex items-center gap-2">
                   <img
                     src={ex1}
-                    alt="Exemplo de foto com liderança de esquerda"
+                    alt="Exemplo de foto com liderança da direita"
                     loading="lazy"
                     className="h-8 w-8 rounded-full object-cover"
                   />
-                  <span className="text-xs font-semibold text-foreground">Dilma</span>
+                  <span className="text-xs font-semibold text-foreground">Flávio</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <img
                     src={ex2}
-                    alt="Exemplo de foto em ato popular"
+                    alt="Exemplo de foto em ato patriota"
                     loading="lazy"
                     className="h-8 w-8 rounded-full object-cover"
                   />
-                  <span className="text-xs font-semibold text-foreground">Boulos</span>
+                  <span className="text-xs font-semibold text-foreground">Nikolas</span>
                 </div>
               </div>
               <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -280,15 +265,12 @@ function Etapa7() {
         </p>
         <div className="mt-2 flex flex-wrap items-center justify-center gap-3 text-[11px] font-semibold text-muted-foreground">
           <span className="inline-flex items-center gap-1">
-            <Lock className="h-3.5 w-3.5 text-cta" /> Pagamento 100% Seguro
+            <Lock className="h-3.5 w-3.5 text-primary" /> Pagamento 100% Seguro
           </span>
           <span className="inline-flex items-center gap-1">
-            <ShieldCheck className="h-3.5 w-3.5 text-cta" /> Tecnologia Criptografada
+            <ShieldCheck className="h-3.5 w-3.5 text-primary" /> Tecnologia Criptografada
           </span>
         </div>
-
-        {/* Popup de downsell removido em favor da rota /oferta-especial */}
-
       </div>
 
       {showOffer && (
@@ -303,13 +285,13 @@ function Etapa7() {
               <X className="h-5 w-5" />
             </button>
 
-            <p className="text-center text-lg font-bold text-primary">🚩</p>
+            <p className="text-center text-lg font-bold text-primary">🇧🇷</p>
             <h2 className="mt-1 text-center text-lg font-bold text-foreground">
-              Espera aí, camarada 🚩
+              Espera aí, patriota
             </h2>
             <p className="mt-2 text-center text-sm leading-snug text-muted-foreground">
-              Tem certeza que você não quer aproveitar nenhuma das nossas promoções pra ajudar o nosso
-              Presidente e fortalecer o nosso lado? Dá pra levar tudo de uma vez, junto com a sua foto.
+              Tem certeza que você não quer aproveitar nenhuma das nossas promoções? Dá pra levar
+              tudo de uma vez, junto com a sua foto.
             </p>
 
             <div className="relative mt-4 rounded-2xl border border-primary/40 bg-highlight/50 p-4">
@@ -325,33 +307,33 @@ function Etapa7() {
                   className="mt-1 h-4 w-4 shrink-0 rounded-full border-border text-primary focus:ring-primary"
                 />
                 <div className="min-w-0">
-                  <p className="text-sm font-bold text-foreground">Combo 3 Líderes da Esquerda 🚩</p>
+                  <p className="text-sm font-bold text-foreground">Combo 3 da Direita 🇧🇷</p>
                   <p className="mt-2 inline-block rounded-md bg-primary px-2 py-1 text-[11px] font-bold text-primary-foreground">
                     SUA FOTO VIRA 3, POR SÓ + R$ 9,90
                   </p>
                   <p className="mt-2 text-xs leading-snug text-muted-foreground">
-                    A mesma selfie também com a <strong className="text-foreground">Dilma</strong> e o{" "}
-                    <strong className="text-foreground">Boulos</strong>. Enquanto a direita treme, você
-                    já mostra de que lado tá, com o maior time popular do país. 🚩
+                    A mesma selfie também com o <strong className="text-foreground">Flávio</strong> e o{" "}
+                    <strong className="text-foreground">Nikolas</strong>. Três fotos pra mostrar de que
+                    lado você está. 🇧🇷
                   </p>
                   <div className="mt-3 flex items-center gap-4">
                     <div className="flex items-center gap-2">
                       <img
                         src={ex1}
-                        alt="Exemplo de foto com liderança de esquerda"
+                        alt="Exemplo de foto com liderança da direita"
                         loading="lazy"
                         className="h-8 w-8 rounded-full object-cover"
                       />
-                      <span className="text-xs font-semibold text-foreground">Dilma</span>
+                      <span className="text-xs font-semibold text-foreground">Flávio</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <img
                         src={ex2}
-                        alt="Exemplo de foto em ato popular"
+                        alt="Exemplo de foto em ato patriota"
                         loading="lazy"
                         className="h-8 w-8 rounded-full object-cover"
                       />
-                      <span className="text-xs font-semibold text-foreground">Boulos</span>
+                      <span className="text-xs font-semibold text-foreground">Nikolas</span>
                     </div>
                   </div>
                   <div className="mt-3 flex flex-wrap items-center gap-2">
