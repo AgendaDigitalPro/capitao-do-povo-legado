@@ -9,11 +9,11 @@ import { trackEtapa } from "@/lib/analytics";
 export const Route = createFileRoute("/etapa-8")({
   head: () => ({
     meta: [
-      { title: "Pague no Pix e libere a sua foto | Foto Camarada" },
+      { title: "Pague no Pix e libere a sua foto | Capitão do Povo" },
       {
         name: "description",
         content:
-          "Copie o código Pix, pague no app do seu banco e volte para esta tela: a sua foto com o Presidente libera em poucos segundos.",
+          "Copie o código Pix, pague no app do seu banco e volte para esta tela: a sua foto com o Capitão libera em poucos segundos.",
       },
       { property: "og:title", content: "Pague no Pix e libere a sua foto" },
       {
@@ -28,7 +28,7 @@ export const Route = createFileRoute("/etapa-8")({
 });
 
 const steps = [
-  { n: 1, title: "Toque em Copiar código Pix", text: "É o botão vermelho aqui embaixo." },
+  { n: 1, title: "Toque em Copiar código Pix", text: "É o botão amarelo aqui embaixo." },
   {
     n: 2,
     title: "Abra o app do seu banco",
@@ -44,18 +44,16 @@ const steps = [
 const PAGOS = new Set(["pago", "gerando_foto", "foto_pronta", "erro"]);
 
 const ROTULOS: Record<string, string> = {
-  lula: "Com o Presidente",
-  dilma: "Com a Dilma",
-  boulos: "Com o Boulos",
+  capitao: "Com o Capitão",
+  flavio: "Com o Flávio",
+  nikolas: "Com o Nikolas",
   gabinete: "No gabinete presidencial",
-  comicio: "No comício, no meio do povo",
+  motociata: "Na motociata, no meio do povo",
   mesa: "Na mesa do café",
 };
 
 type FotoEntregue = { slug: string; nome: string; url: string };
 
-// Guarda o pedido de upsell no aparelho para o cliente não perder o Pix se
-// recarregar a página. Falha em silêncio se o armazenamento estiver bloqueado.
 const chaveUpsell = (s: string) => `upsell_${s}`;
 function lerLocal(k: string): string | null {
   try {
@@ -84,15 +82,15 @@ function useCountdown(start: number) {
 }
 
 function Etapa8() {
-    // Restaura a sessão vinda do link do e-mail (?s=...). Roda durante o primeiro
-  // render, antes de qualquer efeito — então tudo que chama getSessionId()
-  // depois já enxerga a sessão certa.
+  // Restaura a sessão vinda do link do e-mail (?s=...). Roda durante o primeiro
+  // render, antes de qualquer efeito.
   useState(() => {
     if (typeof window !== "undefined") {
       restaurarSessao(new URLSearchParams(window.location.search).get("s"));
     }
     return true;
   });
+
   const promo = useCountdown(14 * 60 + 36);
   const expira = useCountdown(59 * 60 + 34);
   const [copied, setCopied] = useState(false);
@@ -107,8 +105,8 @@ function Etapa8() {
   const [baixando, setBaixando] = useState<string | null>(null);
 
   // ── UPSELL ────────────────────────────────────────────────────────────────
-  // Todo este bloco é isolado de propósito: se qualquer coisa aqui falhar, a
-  // oferta some da tela e a entrega da foto principal continua intacta.
+  // Bloco isolado: se qualquer coisa aqui falhar, a oferta some da tela e a
+  // entrega da foto principal continua intacta.
   const [upSessao, setUpSessao] = useState<string | null>(null);
   const [upPix, setUpPix] = useState("");
   const [upPixImage, setUpPixImage] = useState<string | null>(null);
@@ -122,7 +120,7 @@ function Etapa8() {
     fotos.length > 0
       ? fotos
       : fotoUrl
-        ? [{ slug: "lula", nome: "Presidente", url: fotoUrl }]
+        ? [{ slug: "capitao", nome: "Capitão", url: fotoUrl }]
         : [];
 
   const baixarFoto = async (url: string, slug: string, sessao?: string) => {
@@ -149,7 +147,7 @@ function Etapa8() {
       const objectUrl = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = objectUrl;
-      a.download = slug === "lula" ? "foto-camarada.png" : `foto-camarada-${slug}.png`;
+      a.download = slug === "capitao" ? "foto-patriota.png" : `foto-patriota-${slug}.png`;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -215,8 +213,6 @@ function Etapa8() {
     return () => clearInterval(t);
   }, [status]);
 
-  // Acompanha o pedido de upsell. Roda só depois que ele existe, e para quando
-  // as 3 fotos chegam. Erro aqui nunca afeta a foto principal.
   useEffect(() => {
     if (!upSessao || upFotos.length > 0) return;
     const t = setInterval(async () => {
@@ -303,8 +299,6 @@ function Etapa8() {
     }
   };
 
-  // A oferta só existe depois que a foto principal foi entregue, e some se algo
-  // deu errado. Nunca aparece antes da entrega.
   const mostrarUpsell = pago && listaFotos.length > 0 && !upFalhou;
 
   return (
@@ -356,7 +350,7 @@ function Etapa8() {
             <>
               {varias && (
                 <p className="mb-4 text-base font-extrabold text-primary">
-                  Suas {listaFotos.length} fotos estão prontas, camarada 🚩
+                  Suas {listaFotos.length} fotos estão prontas, patriota 🇧🇷
                 </p>
               )}
               <div className={varias ? "space-y-6" : ""}>
@@ -393,7 +387,7 @@ function Etapa8() {
               )}
 
               <p className="mt-3 text-xs text-muted-foreground">
-                Também enviamos {varias ? "as suas fotos" : "a sua foto"} para o seu e-mail, camarada.
+                Também enviamos {varias ? "as suas fotos" : "a sua foto"} para o seu e-mail, patriota.
               </p>
             </>
           ) : (
@@ -404,11 +398,11 @@ function Etapa8() {
 
       {/* ── OFERTA DOS 3 AMBIENTES ─────────────────────────────────────────── */}
       {mostrarUpsell && (
-        <section className="mt-6 rounded-2xl border-2 border-cta/50 bg-cta/5 p-4">
+        <section className="mt-6 rounded-2xl border-2 border-primary/50 bg-primary/5 p-4">
           {upFotos.length > 0 ? (
             <>
-              <p className="text-center text-base font-extrabold text-cta">
-                Suas {upFotos.length} fotos novas estão prontas 🚩
+              <p className="text-center text-base font-extrabold text-primary">
+                Suas {upFotos.length} fotos novas estão prontas 🇧🇷
               </p>
               <div className="mt-4 space-y-6">
                 {upFotos.map((f) => (
@@ -437,12 +431,12 @@ function Etapa8() {
             </>
           ) : upPago ? (
             <div className="text-center">
-              <p className="flex items-center justify-center gap-2 text-sm font-semibold text-cta">
+              <p className="flex items-center justify-center gap-2 text-sm font-semibold text-primary">
                 <Loader2 className="h-4 w-4 animate-spin" />
                 Pagamento confirmado! Gerando as suas 3 fotos novas
               </p>
               <p className="mt-2 text-xs leading-snug text-muted-foreground">
-                Leva alguns minutos, camarada. Elas aparecem aqui e também vão para o seu e-mail.
+                Leva alguns minutos, patriota. Elas aparecem aqui e também vão para o seu e-mail.
               </p>
             </div>
           ) : upSessao && upPix ? (
@@ -482,7 +476,7 @@ function Etapa8() {
             </>
           ) : (
             <>
-              <p className="flex items-center justify-center gap-2 text-xs font-extrabold uppercase tracking-wide text-cta">
+              <p className="flex items-center justify-center gap-2 text-xs font-extrabold uppercase tracking-wide text-primary">
                 <Sparkles className="h-4 w-4" />
                 Só agora, nesta tela
               </p>
@@ -491,14 +485,14 @@ function Etapa8() {
               </h2>
               <p className="mt-2 text-center text-sm leading-snug text-muted-foreground">
                 A <strong className="text-foreground">mesma foto sua</strong>, agora no gabinete
-                presidencial, no meio do comício e na mesa do café.
+                presidencial, no meio da motociata e na mesa do café.
               </p>
-              <p className="mt-3 rounded-xl border border-cta/30 bg-card p-3 text-center text-sm font-bold leading-snug text-foreground">
+              <p className="mt-3 rounded-xl border border-primary/30 bg-card p-3 text-center text-sm font-bold leading-snug text-foreground">
                 Você não precisa mandar selfie de novo. Já está tudo pronto aqui, é só pagar.
               </p>
               <p className="mt-4 flex items-end justify-center gap-2">
                 <span className="text-sm text-muted-foreground line-through">R$ 59,70</span>
-                <span className="text-3xl font-extrabold text-cta">R$ 19,90</span>
+                <span className="text-3xl font-extrabold text-primary">R$ 19,90</span>
                 <span className="pb-1 text-sm font-semibold text-foreground">as três</span>
               </p>
               <button
@@ -520,32 +514,20 @@ function Etapa8() {
 
       {pago && selectedBumps.length > 0 && (
         <section className="mt-6 space-y-4">
-          <h2 className="text-lg font-bold text-foreground">Seus bônus, camarada 🚩</h2>
+          <h2 className="text-lg font-bold text-foreground">Seus bônus, patriota 🇧🇷</h2>
           <div className="grid gap-3">
             {selectedBumps.map((bumpId) => {
               if (bumpId === "wallpapers") {
-                return <BonusCard key={bumpId} title="Pack de Papéis de Parede" icon={Smartphone} actionLabel="Baixar wallpapers" href="/wallpapers_camarada.zip" />;
+                return <BonusCard key={bumpId} title="Pack de Papéis de Parede" icon={Smartphone} actionLabel="Baixar wallpapers" href="/wallpapers_patriota.zip" />;
               }
               if (bumpId === "figurinhas") {
-                return <BonusCard key={bumpId} title="Figurinhas Camaradas pro WhatsApp" icon={MessageCircle} actionLabel="Baixar figurinhas" href="/figurinhas_camarada.zip" />;
+                return <BonusCard key={bumpId} title="Figurinhas Patriotas pro WhatsApp" icon={MessageCircle} actionLabel="Baixar figurinhas" href="/figurinhas_patriota.zip" />;
               }
               if (bumpId === "biografia") {
-                return <BonusCard key={bumpId} title="Biografia do Presidente" icon={BookOpen} actionLabel="Baixar PDF" storagePath="biografia_lula.pdf" />;
+                return <BonusCard key={bumpId} title="A História do Capitão" icon={BookOpen} actionLabel="Baixar PDF" storagePath="biografia_capitao.pdf" />;
               }
               if (bumpId === "adesivos") {
-                return <BonusCard key={bumpId} title="Adesivos da Esquerda" icon={Sticker} actionLabel="Baixar PDF" storagePath="adesivos_esquerda.pdf" />;
-              }
-              // ── LEGADO: saíram da oferta, mas quem comprou continua baixando ──
-              if (bumpId === "cartilha") {
-                return <BonusCard key={bumpId} title="Cartilha da Militância" icon={Star} actionLabel="Baixar PDF" storagePath="cartilha_militancia.pdf" />;
-              }
-              if (bumpId === "telegram") {
-                return (
-                  <div key={bumpId} className="grid gap-2">
-                    <BonusCard title="Grupo VIP Telegram (Soldados da Esquerda)" icon={Send} actionLabel="Acessar grupo" href="https://t.me/SoldadosDaEsquerda" isExternal />
-                    <BonusCard title="Grupo VIP Telegram (Esquerda Online)" icon={Send} actionLabel="Acessar grupo" href="https://t.me/esquerdaonline" isExternal />
-                  </div>
-                );
+                return <BonusCard key={bumpId} title="Adesivos Patriotas" icon={Sticker} actionLabel="Baixar PDF" storagePath="adesivos_patriotas.pdf" />;
               }
               return null;
             })}
@@ -567,7 +549,7 @@ function Etapa8() {
       <p className="mt-1 text-center text-xs font-semibold text-foreground">
         Após o pagamento, sua foto será gerada automaticamente.
       </p>
-      {erro && <p className="mt-2 text-center text-xs font-semibold text-primary">{erro}</p>}
+      {erro && <p className="mt-2 text-center text-xs font-semibold text-destructive">{erro}</p>}
 
       <div className={`mt-5 border-t border-border pt-5 ${pago || !pixCode ? "hidden" : ""}`}>
         <p className="flex items-center justify-center gap-2 text-sm font-semibold text-foreground">
@@ -579,7 +561,7 @@ function Etapa8() {
           <div className="rounded-xl bg-card p-3 shadow-sm ring-1 ring-border">
             <img
               src={pixImage ? (pixImage.startsWith("data:") ? pixImage : `data:image/png;base64,${pixImage}`) : `https://api.qrserver.com/v1/create-qr-code/?size=440x440&data=${encodeURIComponent(pixCode)}`}
-              alt="QR Code Pix para liberar a sua foto com o Presidente"
+              alt="QR Code Pix para liberar a sua foto com o Capitão"
               width={260}
               height={260}
               loading="lazy"
@@ -589,7 +571,7 @@ function Etapa8() {
         </div>
 
         <p className="mt-3 text-center text-xs leading-snug text-muted-foreground">
-          Escaneie com o celular de quem vai pagar. No mesmo aparelho, use o botão verde acima.
+          Escaneie com o celular de quem vai pagar. No mesmo aparelho, use o botão amarelo acima.
         </p>
 
         <p className="mt-3 flex items-center justify-center gap-2 text-xs text-muted-foreground">
@@ -674,19 +656,19 @@ function BonusCard({
 const MENSAGENS_GERACAO = [
   "Recebendo a sua selfie...",
   "Reconhecendo o seu rosto...",
-  "Chamando o Presidente para a foto...",
+  "Chamando o Capitão para a foto...",
   "Ajustando iluminação e enquadramento...",
   "Aplicando os detalhes finais...",
-  "Quase lá, camarada. Não feche esta tela.",
+  "Quase lá, patriota. Não feche esta tela.",
 ];
 
 const MENSAGENS_COMBO = [
   "Recebendo a sua selfie...",
   "Reconhecendo o seu rosto...",
-  "Chamando o Presidente para a foto...",
-  "Agora a Dilma e o Boulos entram no quadro...",
+  "Chamando o Capitão para a foto...",
+  "Agora o Flávio e o Nikolas entram no quadro...",
   "Ajustando iluminação e enquadramento das 3...",
-  "Quase lá, camarada. Não feche esta tela.",
+  "Quase lá, patriota. Não feche esta tela.",
 ];
 
 function ProgressoGeracao({ combo = false }: { combo?: boolean }) {
@@ -707,7 +689,7 @@ function ProgressoGeracao({ combo = false }: { combo?: boolean }) {
     <div className="text-left">
       <p className="flex items-center justify-center gap-2 text-sm font-semibold text-primary">
         <Loader2 className="h-4 w-4 animate-spin" />
-        {combo ? "Gerando as suas 3 fotos" : "Gerando a sua foto com o Presidente"}
+        {combo ? "Gerando as suas 3 fotos" : "Gerando a sua foto com o Capitão"}
       </p>
 
       <div className="mt-3 h-3 w-full overflow-hidden rounded-full bg-primary/15">
@@ -723,7 +705,7 @@ function ProgressoGeracao({ combo = false }: { combo?: boolean }) {
 
       <p className="mt-3 text-center text-sm font-extrabold text-primary">NÃO FECHE ESTA PÁGINA</p>
       <p className="mt-1 text-center text-xs leading-snug text-muted-foreground">
-        Isso pode levar alguns minutos, camarada. Se fechar sem querer, é só voltar por este mesmo
+        Isso pode levar alguns minutos, patriota. Se fechar sem querer, é só voltar por este mesmo
         link no mesmo aparelho que a sua foto aparece aqui, e ela também vai para o seu e-mail.
       </p>
     </div>
