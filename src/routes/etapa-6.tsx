@@ -8,13 +8,13 @@ import { trackEtapa } from "@/lib/analytics";
 export const Route = createFileRoute("/etapa-6")({
   head: () => ({
     meta: [
-      { title: "Dados para entrega | Foto Camarada" },
+      { title: "Dados para entrega | Capitão do Povo" },
       {
         name: "description",
         content:
-          "Informe seu WhatsApp e e-mail para receber a sua foto ao lado do Presidente e os bônus exclusivos.",
+          "Informe seu WhatsApp e e-mail para receber a sua foto ao lado do Capitão e os bônus exclusivos.",
       },
-      { property: "og:title", content: "Receba a sua foto camarada" },
+      { property: "og:title", content: "Receba a sua foto com o Capitão" },
       {
         property: "og:description",
         content: "Informe seu WhatsApp e e-mail para receber a sua foto e os bônus.",
@@ -82,7 +82,7 @@ function Etapa6() {
       </header>
 
       <section className="pt-6">
-        <p className="text-xs font-bold uppercase tracking-wide text-primary">Falta pouco! 🔥</p>
+        <p className="text-xs font-bold uppercase tracking-wide text-primary">Falta pouco! 🇧🇷</p>
         <h1 className="mt-1 text-2xl font-extrabold leading-tight tracking-tight text-foreground">
           Onde você quer receber a sua foto?
         </h1>
@@ -157,7 +157,7 @@ function Etapa6() {
         </div>
       </section>
 
-      {erro && <p role="alert" className="mt-4 text-xs font-semibold text-primary">{erro}</p>}
+      {erro && <p role="alert" className="mt-4 text-xs font-semibold text-destructive">{erro}</p>}
 
       <div className="sticky bottom-0 z-40 -mx-4 mt-8 border-t border-border bg-card/95 px-4 py-3 backdrop-blur">
         <button
