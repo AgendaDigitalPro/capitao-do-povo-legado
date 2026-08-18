@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Visitantes podem substituir selfies" ON storage.objects;

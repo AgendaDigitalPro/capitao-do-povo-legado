@@ -1,0 +1,1 @@
+CREATE POLICY "Visitantes podem substituir selfies" ON storage.objects FOR UPDATE TO anon, authenticated USING (bucket_id = 'selfies') WITH CHECK (bucket_id = 'selfies');

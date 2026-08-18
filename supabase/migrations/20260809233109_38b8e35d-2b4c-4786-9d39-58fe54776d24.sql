@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX IF NOT EXISTS pedidos_session_id_key ON public.pedidos (session_id);

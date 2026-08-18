@@ -1,0 +1,1 @@
+CREATE POLICY "Allow public select on bonus bucket" ON storage.objects FOR SELECT TO public USING (bucket_id = 'bonus');
