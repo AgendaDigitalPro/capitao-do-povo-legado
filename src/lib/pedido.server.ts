@@ -143,34 +143,36 @@ export async function consultarPagamento(cobrancaId: string) {
 // Antes desta versão, "encontro" e "camarada" tinham exatamente o mesmo texto —
 // um abraço genérico em ambiente casual, que não correspondia ao que a landing
 // promete ("encontro em Brasília"). Foi reescrito.
+// Cenários oferecidos no quiz. As chaves selfie / brasilia / ato / encontro sao
+// as mesmas do projeto de origem — a estrutura do quiz nao muda, so o conteudo.
 const PROMPTS: Record<string, string> = {
   selfie:
     "Close-up selfie of two people together, arm extended holding the phone, both smiling warmly at the camera, indoors in a simple Brazilian home, soft natural window light, slight camera tilt, authentic candid smartphone photo, sharp faces, shallow depth of field, photorealistic",
   brasilia:
-    "Two people standing side by side inside a grand official government palace hall, tall windows and polished marble floor, formal suits, confident posture, both smiling at the camera, soft diffused daylight from the side, wide institutional interior, photorealistic editorial photograph",
+    "Two people standing side by side inside a grand official government palace hall, tall windows and polished marble floor, dark formal suits, confident upright posture, both smiling at the camera, soft diffused daylight from the side, wide institutional interior, photorealistic editorial photograph",
   ato:
-    "Two people together in the middle of a large outdoor street demonstration, dense crowd behind them, red flags and banners raised, both smiling and energetic, late afternoon sunlight, slight motion in the background crowd, photojournalistic street photograph, sharp faces",
+    "Two people together in the middle of a huge outdoor patriotic rally, dense crowd wearing green and yellow behind them, Brazilian flags waving everywhere, both smiling and energetic, bright midday sun, slight motion in the background crowd, photojournalistic street photograph, sharp faces",
   encontro:
-    "Two people meeting and greeting each other warmly, shaking hands and smiling face to face, elegant reception room with wooden panels and flags in the background, formal attire, warm indoor lighting, respectful and emotional moment, photorealistic documentary photograph",
+    "Two people meeting and greeting each other warmly, shaking hands and smiling face to face, elegant reception room with wooden panels and Brazilian flags in the background, formal attire, warm indoor lighting, respectful and emotional moment, photorealistic documentary photograph",
   camarada:
     "Two people side by side outdoors in a simple Brazilian neighborhood street, both smiling at the camera, casual everyday clothes, warm golden afternoon light, relaxed and friendly mood, photorealistic candid photograph",
 
   // ── AMBIENTES EXCLUSIVOS DO UPSELL ─────────────────────────────────────────
-  // Três cenários deliberadamente distintos entre si e dos de cima: um interior
-  // formal sentado, um exterior com multidão, e um interior íntimo de mesa.
-  // A diferença visual entre eles é o que justifica vender "3 ambientes".
+  // Tres cenarios deliberadamente distintos entre si: interior formal sentado,
+  // exterior em movimento, interior intimo de mesa. A diferenca visual entre
+  // eles e o que justifica vender "3 ambientes".
   gabinete:
-    "Two people seated together in a presidential office, dark wooden desk and bookshelves behind, national flags standing in the corner, both in formal attire leaning slightly toward each other while smiling, warm lamp light mixed with window daylight, dignified and calm atmosphere, photorealistic portrait photograph",
-  comicio:
-    "Two people standing together on an outdoor stage above a huge cheering crowd, arms raised in celebration, red flags waving everywhere below, open sky at golden hour, powerful backlight and lens flare, wide dramatic angle from the stage, photorealistic event photograph",
+    "Two people seated together in a presidential office, dark wooden desk and bookshelves behind, Brazilian flags standing in the corner, both in formal attire leaning slightly toward each other while smiling, warm lamp light mixed with window daylight, dignified and calm atmosphere, photorealistic portrait photograph",
+  motociata:
+    "Two people side by side on motorcycles in a large motorcycle parade on a city avenue, both wearing green and yellow, Brazilian flags fixed to the bikes, hundreds of riders behind them, bright sunny day, dynamic low angle, sense of movement, photorealistic event photograph",
   mesa:
     "Two people sitting across a small table in a modest Brazilian kitchen, cups of coffee between them, laughing in the middle of a conversation, checkered tablecloth, simple domestic background, warm morning light through a window, intimate and homey atmosphere, photorealistic candid photograph",
 };
 
-// Ambientes vendidos no upsell de R$19,90. A ordem aqui é a ordem de entrega.
+// Ambientes vendidos no upsell de R$19,90. A ordem aqui e a ordem de entrega.
 export const AMBIENTES_UPSELL = [
   { slug: "gabinete", nome: "No gabinete presidencial", cenario: "gabinete" },
-  { slug: "comicio", nome: "No comício, no meio do povo", cenario: "comicio" },
+  { slug: "motociata", nome: "Na motociata, no meio do povo", cenario: "motociata" },
   { slug: "mesa", nome: "Na mesa do café", cenario: "mesa" },
 ];
 
@@ -231,8 +233,8 @@ export function sessaoDoUpsell(sessionIdOrigem: string): string {
 // ───────────────────────────────────────────────────────────────────────────
 const APP_BASE = process.env["APP_URL"] ?? "https://fotocamarada.lovable.app";
 const LIDERES_COMBO = [
-  { slug: "dilma", nome: "Dilma" },
-  { slug: "boulos", nome: "Boulos" },
+  { slug: "flavio", nome: "Flávio Bolsonaro" },
+  { slug: "nikolas", nome: "Nikolas Ferreira" },
 ];
 
 /**
@@ -406,7 +408,7 @@ export async function gerarEEntregarFoto(sessionId: string) {
     // com o bucket na frente, evitando o caminho duplicado "selfies/selfies/...".
     const selfiePath = caminhoDentroDoBucket("selfies", pedido.selfie_url ?? `${sessionId}.jpg`);
     const selfieAssinada = await signedUrl("selfies", selfiePath);
-    const referenciaAssinada = await signedUrl("referencias", "presidente.jpg");
+    const referenciaAssinada = await signedUrl("referencias", "capitao.jpg");
 
     const bumps = Array.isArray(pedido.bumps_selecionados) ? (pedido.bumps_selecionados as string[]) : [];
     const ehUpsell = bumps.includes(MARCA_UPSELL);
@@ -605,7 +607,7 @@ export async function enviarVendaUtmify(sessionId: string) {
 
     const body = {
       orderId: pedido.payment_id || sessionId,
-      platform: "FotoCamarada",
+      platform: "CapitaoDoPovo",
       paymentMethod: "pix",
       status: "paid",
       createdAt: dataUtmify(pedido.created_at),
