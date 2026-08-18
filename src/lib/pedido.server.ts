@@ -250,7 +250,7 @@ export async function linksDasFotos(sessionId: string, bumps: string[], seconds 
   const alvos: { slug: string; nome: string; path: string }[] = bumps.includes(MARCA_UPSELL)
     ? AMBIENTES_UPSELL.map((a) => ({ slug: a.slug, nome: a.nome, path: `${sessionId}-${a.slug}.png` }))
     : [
-        { slug: "lula", nome: "Presidente", path: `${sessionId}.png` },
+        { slug: "capitao", nome: "Capitão", path: `${sessionId}.png` },
         ...(bumps.includes("combo")
           ? LIDERES_COMBO.map((l) => ({ slug: l.slug, nome: l.nome, path: `${sessionId}-${l.slug}.png` }))
           : []),
