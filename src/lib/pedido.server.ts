@@ -409,7 +409,7 @@ export async function gerarEEntregarFoto(sessionId: string) {
     const selfiePath = caminhoDentroDoBucket("selfies", pedido.selfie_url ?? `${sessionId}.jpg`);
     const selfieAssinada = await signedUrl("selfies", selfiePath);
     // As tres referencias vivem em public/referencias/ deste projeto.
-    const referenciaAssinada = `${APP_BASE}/referencias/capitao.jpg`;
+const referenciaAssinada = `${APP_BASE}/referencias/bolsonaro.jpg`;
 
     const bumps = Array.isArray(pedido.bumps_selecionados) ? (pedido.bumps_selecionados as string[]) : [];
     const ehUpsell = bumps.includes(MARCA_UPSELL);
@@ -429,8 +429,8 @@ export async function gerarEEntregarFoto(sessionId: string) {
         }))
       : [
           {
-            slug: "lula",
-            referencia: referenciaAssinada,
+           slug: "capitao",
+           referencia: referenciaAssinada,
             destino: `${sessionId}.png`,
             prompt: promptDoQuiz,
           },
